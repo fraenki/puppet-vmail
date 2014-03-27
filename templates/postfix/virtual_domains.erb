@@ -1,0 +1,10 @@
+<%- if @item and @type == 'domain' -%>
+  <%- if !@hash['type'] or (@hash['type'] == 'standalone' or @hash['type'] == 'local') -%>
+<%= @item %>
+    <%- if @hash['aliases'] and @hash['aliases'].is_a?(Array) -%>
+      <%- @hash['aliases'].each do |domainalias| -%>
+<%= domainalias %>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>

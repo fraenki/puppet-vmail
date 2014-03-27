@@ -1,0 +1,36 @@
+<%- if @item -%>
+  <%- if @type == 'domain' -%>
+    <%- if @hash['aliases'] and @hash['aliases'].is_a?(Array) -%>
+      <%- @hash['aliases'].each do |domainalias| -%>
+@<%= domainalias %>    @<%= @item %>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+  <%- if @type == 'user' -%>
+    <%- if @hash['settings'].is_a?(Hash) and @hash['settings']['maildomains'].is_a?(Hash) -%>
+      <%- # loop through all maildomains -%>
+      <%- @hash['settings']['maildomains'].each_pair do |domain, config| -%>
+        <%- # check for alternative username -%>
+        <%- if config.is_a?(Hash) and config['username'].is_a?(String) -%>
+          <%- username = config['username'] -%>
+        <%- elsif @hash['settings']['username'] -%>
+          <%- username = @hash['settings']['username'] -%>
+        <%- else -%>
+          <%- username = @item -%>
+        <%- end -%>
+        <%- # check for domain-specific aliases -%>
+        <%- if config.is_a?(Hash) and config['aliases'].is_a?(Array) -%>
+          <%- config['aliases'].each do |localalias| -%>
+<%= localalias %>@<%= domain %>    <%= username %>@<%= domain %>
+          <%- end -%>
+        <%- end -%>
+        <%- # check for user-specific aliases -%>
+        <%- if @hash['settings']['aliases'].is_a?(Array) -%>
+          <%- @hash['settings']['aliases'].each do |globalalias| -%>
+<%= globalalias %>@<%= domain %>    <%= username %>@<%= domain %>
+          <%- end -%>
+        <%- end -%>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>

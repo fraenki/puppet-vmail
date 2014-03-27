@@ -1,0 +1,7 @@
+<%- if @item and @type == 'domain' -%>
+  <%- if @hash['masquerades'] and @hash['masquerades'].is_a?(Array) -%>
+    <%- @hash['masquerades'].each do |rewrite| -%>
+@<%= rewrite %>    @<%= @item %>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>

@@ -1,0 +1,5 @@
+<%- if @item and @type == 'domain' -%>
+  <%- if @hash['type'] and (@hash['type'] == 'backupmx' or @hash['type'] == 'backup') -%>
+<%= @item %>
+  <%- end -%>
+<%- end -%>

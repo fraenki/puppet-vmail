@@ -1,0 +1,5 @@
+<%- if @item and @type == 'domain' -%>
+  <%- if @hash['type'] and @hash['type'] == 'relay' and @hash['host'] -%>
+<%= @item %>    relay:[<%= @hash['host'] %><%- if @hash['port'] -%>:<%= @hash['port'] %><%- end -%>]
+  <%- end -%>
+<%- end -%>

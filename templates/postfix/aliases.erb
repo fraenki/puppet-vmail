@@ -1,0 +1,5 @@
+<%- if @item and @type == 'user' -%>
+  <%- if @hash['settings'].is_a?(Hash) and @hash['settings']['local_alias'].is_a?(String) -%>
+<%= @item %>:    <%= @hash['settings']['local_alias'] %>
+  <%- end -%>
+<%- end -%>
