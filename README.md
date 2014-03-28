@@ -137,7 +137,7 @@ You may want to customize the whole thing by using  _vmail::file_ directly:
 
 ##Reference
 
-###HIERA user reference
+###HIERA attribute reference
 
 All currently supported attributes:
 
