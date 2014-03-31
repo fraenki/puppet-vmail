@@ -49,12 +49,22 @@ define vmail::file (
       fail("vmail::file[${title}][${domain}]: domain name must not contain the '#' sign")
     }
 
-    # Instantiate
-    vmail::item { "${title}#${domain}":
-      file      => $file,
-      hash      => $options,
-      template  => $template,
-      type      => 'domain',
+    # Check required host
+    if is_hash($options) and is_array($options['hosts']) {
+      # Validate against node FQDN
+      if !member($options['hosts'], $::fqdn) {
+        $force_disabled = true
+      }
+    }
+
+    if $force_disabled != true {
+      # Instantiate
+      vmail::item { "${title}#${domain}":
+        file      => $file,
+        hash      => $options,
+        template  => $template,
+        type      => 'domain',
+      }
     }
   }
 

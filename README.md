@@ -13,7 +13,8 @@
   - [Basic Usage](#basic-usage)
   - [Complex Example](#complex-example)
 - [Reference](#reference)
-  - [HIERA user reference](#hiera-user-reference)
+  - [Feature overview](#feature-overview)
+  - [HIERA attribute reference](#hiera-attribute-reference)
   - [Module parameter reference](#module-parameter-reference)
   - [Performance](#performance)
   - [Iterations/Lambdas](#iterationslambdas)
@@ -136,6 +137,30 @@ You may want to customize the whole thing by using  _vmail::file_ directly:
     }
 
 ##Reference
+
+###Feature overview
+
+Configure domain aliases:
+
+    company.com:
+      aliases: [the-company.com, company.org, mycompany.net]
+
+Tie a domain configuration to specific hosts:
+
+    company.com:
+      hosts: [mx3.company.com, mx4.company.com]
+
+Create a backup MX configuration:
+
+    company.com:
+      type: backupmx
+
+Relay mail to a specific host (and optional port):
+
+    company.com:
+      type: relay
+      host: mx-test.company.com
+      port: 2525
 
 ###HIERA attribute reference
 
