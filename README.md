@@ -49,7 +49,8 @@ This module requires iterations/lambdas. You need puppet 3.2+ and the future par
 ###Dependencies
 
 Currently requires the puppetlabs/concat and puppetlabs/stdlib module.
-I recommend to use _vpasswd_ for virtual user and e-mail address management.
+I recommend to use my _vpasswd_ module for virtual user and e-mail address management.
+Besides that _thias-postfix_ and _jproyo-dovecot_ are useful to manage the mail services.
 
 ##Usage
 
