@@ -18,6 +18,43 @@
         <%- else -%>
           <%- username = @item -%>
         <%- end -%>
+        <%- # collect user-specific and domain-specific forwards -%>
+        <%- if @hash['settings']['forwards'].is_a?(Array) and config.is_a?(Hash) and config['forwards'].is_a?(Array) -%>
+          <%- # merge user-specific und domain-specific forwards -%>
+          <%- forwards_merged = scope.function_concat([@hash['settings']['forwards'],config['forwards']]) -%>
+          <%- forwards = scope.function_join([forwards_merged, ' ']) -%>
+        <%- elsif @hash['settings']['forwards'].is_a?(Array) -%>
+          <%- # collect user-specific forwards -%>
+          <%- forwards = scope.function_join([@hash['settings']['forwards'], ' ']) -%>
+        <%- elsif config.is_a?(Hash) and config['forwards'].is_a?(Array) -%>
+          <%- # collect domain-specific forwards -%>
+          <%- forwards = scope.function_join([config['forwards'], ' ']) -%>
+        <%- end -%>
+        <%- # check local mail delivery -%>
+        <%- if config.is_a?(Hash) and config['delivery'] == true -%>
+          <%- # domain-specific settings override user-specific settings -%>
+          <%- local_delivery = true -%>
+        <%- elsif config.is_a?(Hash) and config['delivery'] == false -%>
+          <%- # local delivery disabled for this domain -%>
+          <%- local_delivery = false -%>
+        <%- elsif @hash['settings']['delivery'] == false -%>
+          <%- # local delivery is disabled for this user -%>
+          <%- local_delivery = false -%>
+        <%- else -%>
+          <%- # default: enable local delivery -%>
+          <%- local_delivery = true -%>
+        <%- end -%>
+        <%- # check forwards -%>
+        <%- if forwards -%>
+          <%- # check local mail delivery -%>
+          <%- if local_delivery == false -%>
+            <%- # just forward; do NOT deliver mail to local mailbox -%>
+<%= @item %>@<%= domain %>    <%= forwards %>
+          <%- else -%>
+            <%- # deliver mail to local mailbox AND forward it -%>
+<%= @item %>@<%= domain %>    <%= @item %>@<%= domain %> <%= forwards %>
+          <%- end -%>
+        <%- end -%>
         <%- # check for domain-specific aliases -%>
         <%- if config.is_a?(Hash) and config['aliases'].is_a?(Array) -%>
           <%- config['aliases'].each do |localalias| -%>
