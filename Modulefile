@@ -8,5 +8,5 @@ description 'This module manages data-driven mail configuration files. It does
     NOT manage the mail service itself.'
 project_page 'https://github.com/fraenki/puppet-vmail'
 
-dependency 'puppetlabs/concat', '>= 1.0.0'
+dependency 'puppetlabs/concat', '>= 1.1.0'
 dependency 'puppetlabs/stdlib', '>= 4.0.0'

@@ -15,7 +15,6 @@ define vmail::item (
   $hash     = {}
 ) {
 
-  include concat::setup
   include stdlib
 
   validate_hash($hash)

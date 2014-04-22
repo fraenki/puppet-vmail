@@ -16,7 +16,6 @@ define vmail::file (
   $user_hash   = {},
 ) {
 
-  include concat::setup
   include stdlib
 
   validate_hash($domain_hash)
