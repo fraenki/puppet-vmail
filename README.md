@@ -1,6 +1,4 @@
-#vmail
-
-##Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Module Description](#module-description)
@@ -20,11 +18,11 @@
   - [Iterations/Lambdas](#iterationslambdas)
 - [Development](#development)
 
-##Overview
+## Overview
 
 This module manages data-driven mail configuration files. It does NOT manage the mail service itself.
 
-##Module Description
+## Module Description
 
 You define your mail environment in HIERA - domains, addresses, routes, policies - and _vmail_ will put this data in application-specific files. Its focus is on DATA.
 
@@ -38,25 +36,25 @@ Currently only file-backends are supported, but it should be possible to support
 
 NOTE: To manage passwd-like virtual user databases, you may want to checkout the _vpasswd_ module.
 
-##Requirements
+## Requirements
 
 Unlike many modules, _vmail_ does not manage your mail service nor will it try to install any package. You need additional modules to manage your MTAs main configuration and service.
 
-###Experimental Feature
+### Experimental Feature
 
 This module requires iterations/lambdas. You need puppet 3.2+ and the future parser enabled in order to use this module.
 
-###Dependencies
+### Dependencies
 
 Currently requires the puppetlabs/concat and puppetlabs/stdlib module.
 I recommend to use my _vpasswd_ module for virtual user and e-mail address management.
 Besides that _thias-postfix_ and _jproyo-dovecot_ are useful to manage the mail services.
 
-##Usage
+## Usage
 
 First, you need to define your mail environment in HIERA. While this module tries to be as flexible as possible, it requires you to use the expected syntax.
 
-###Setup HIERA: _Simple example (YAML)_
+### Setup HIERA: _Simple example (YAML)_
 
     virtual_domains:
       company.com:
@@ -66,7 +64,7 @@ First, you need to define your mail environment in HIERA. While this module trie
 
 NOTE: This example does not cover the user configuration. You may want to have a look at the _vpasswd_ module for an example user configuration.
 
-###Setup HIERA: _Complex example (YAML)_
+### Setup HIERA: _Complex example (YAML)_
 
     virtual_domains:
       company.com:
@@ -91,7 +89,7 @@ NOTE: This example does not cover the user configuration. You may want to have a
 
 NOTE: This example does not cover the user configuration. You may want to have a look at the _vpasswd_ module for an example user configuration.
 
-###Basic Usage
+### Basic Usage
 
 The most basic, yet fully-working example:
 
@@ -114,7 +112,7 @@ This will create a bunch of files for postfix:
 * virtual_alias(.db)
 * virtual_domains
 
-###Complex Example
+### Complex Example
 
 You may want to customize the whole thing by using  _vmail::file_ directly:
 
@@ -136,9 +134,9 @@ You may want to customize the whole thing by using  _vmail::file_ directly:
       file     => "${postfixdir}/virtual_alias",
     }
 
-##Reference
+## Reference
 
-###Feature overview
+### Feature overview
 
 Configure domain aliases:
 
@@ -162,7 +160,7 @@ Relay mail to a specific host (and optional port):
       host: mx-test.company.com
       port: 2525
 
-###HIERA attribute reference
+### HIERA attribute reference
 
 All currently supported attributes:
 
@@ -182,7 +180,7 @@ All currently supported attributes:
         host: mx-test.company.com
         port: 2525
 
-###Module parameter reference
+### Module parameter reference
 
 All currently supported parameters:
 
@@ -204,15 +202,15 @@ All currently supported parameters:
       file     => '/foo/postfix/virtual_alias',
     }
 
-###Performance
+### Performance
 
 This module does not scale well. The performance suffers from the _future parser_ and the large number of objects being created during a puppet run, or maybe it's the concat module. If you find a way to improve performance, please let me know.
 
-###Iterations/Lambdas
+### Iterations/Lambdas
 
 Why does this module depend on experimental features like iterations/lambdas? I wanted to keep the defined types simple, but still make it possible to use the same mail data multiple times (for multiple files, multiple applications). To avoid duplicate declarations I needed to use iterations (and unique names for every object, hence separators were born).
 
-##Development
+## Development
 
 Please use the github issues functionality to report any bugs or requests for new features.
 Feel free to fork and submit pull requests for potential contributions.
