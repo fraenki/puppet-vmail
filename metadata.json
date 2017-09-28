@@ -1,0 +1,15 @@
+{
+  "name": "fraenki-vmail",
+  "version": "0.1.1",
+  "author": "Frank Wall",
+  "summary": "Manage mail configurations",
+  "license": "Simplified BSD License",
+  "source": "git://github.com/fraenki/puppet-vmail",
+  "project_page": "https://github.com/fraenki/puppet-vmail",
+  "issues_url": "https://github.com/fraenki/puppet-vmail/issues",
+  "description": "This module manages data-driven mail configuration files. It does \n    NOT manage the mail service itself.",
+  "dependencies": [
+    {"name":"puppetlabs/concat","version_requirement":">= 1.1.0"},
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.0.0"}
+  ]
+}
