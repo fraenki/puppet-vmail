@@ -30,7 +30,7 @@ define vmail::postfix::dbfile (
 
   exec { "${command} ${file}":
     cwd         => '/tmp',
-    subscribe   => File[$file],
+    subscribe   => Concat[$file],
     refreshonly => true,
     # No need to notify the service, since it detects changed files
   }
